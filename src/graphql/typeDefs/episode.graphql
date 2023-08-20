@@ -1,0 +1,31 @@
+scalar Date
+
+enum EpisodeStatus {
+  UPCOMING
+  AIRED
+  CANCELLED
+}
+
+type Season {
+  id: ID!
+  season: Int!
+  title: String!
+  episodes: [Episode!]!
+  airDate: Date
+}
+
+type Episode {
+  id: ID!
+  title: String!
+  airDate: Date
+  image: String
+  status: EpisodeStatus!
+  duration: Int
+  season: Season!
+  seasonId: ID!
+  characters: [Character!]!
+  storyLine: String
+  directors: [String!]!
+  writers: [String!]!
+  guestStars: [String!]!
+}

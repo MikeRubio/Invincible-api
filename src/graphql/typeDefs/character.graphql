@@ -1,0 +1,47 @@
+enum CharacterStatus {
+  ALIVE
+  DEAD
+  UNKNOWN
+}
+
+enum CharacterSpecie {
+  HUMAN
+  Viltrumites
+  Flaxans
+  Sequids
+  Unopians
+  Martians
+}
+
+input CharacterInput {
+  name: String!
+  status: CharacterStatus
+  bio: String
+  voiceBy: [String]
+  image: String
+  specie: CharacterSpecie
+  occupation: [String]
+  home: String
+}
+
+type Character {
+  id: ID!
+  name: String!
+  status: CharacterStatus
+  bio: String
+  episodes: [Episode]
+  voiceBy: [String]
+  image: String
+  specie: CharacterSpecie
+  occupation: [String]
+  home: String
+}
+
+type Query {
+  characters: [Character]
+  character(id: ID!): Character
+}
+
+type Mutation {
+  createCharacter(input: CharacterInput): Character
+}

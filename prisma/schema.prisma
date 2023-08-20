@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EpisodeStatus {
+  UPCOMING
+  AIRED
+  CANCELLED
+}
+
+enum CharacterStatus {
+  ALIVE
+  DEAD
+  UNKNOWN
+}
+
+enum CharacterSpecie {
+  HUMAN
+  Viltrumites
+  Flaxans
+  Sequids
+  Unopians
+  Martians
+}
+
+model Season {
+  id       Int       @id @default(autoincrement())
+  season   Int
+  title    String
+  episodes Episode[]
+  airDate  DateTime?
+}
+
+model Episode {
+  id         Int           @id @default(autoincrement())
+  title      String
+  airDate    DateTime?
+  image      String
+  status     EpisodeStatus
+  duration   Int
+  season     Season        @relation(fields: [seasonId], references: [id])
+  seasonId   Int
+  characters Character[]
+  storyLine  String?
+  directors  String[]
+  writers    String[]
+  guestStars String[]
+}
+
+model Character {
+  id         Int              @id @default(autoincrement())
+  name       String
+  status     CharacterStatus?
+  bio        String?
+  episodes   Episode[]
+  voiceBy    String[]
+  image      String
+  occupation String[]
+  specie     CharacterSpecie
+  home       String
+}
