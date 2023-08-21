@@ -27,12 +27,12 @@ export const getCharacter = async ({ id, info }: GetCharacterArgs) => {
 
   if (episodesIncluded) {
     return await prisma.character.findUnique({
-      where: { id },
+      where: { id: Number(id) },
       include: { episodes: true },
     });
   }
 
-  return await prisma.character.findUnique({ where: { id } });
+  return await prisma.character.findUnique({ where: { id: Number(id) } });
 };
 
 export const createCharacter = async (input: CreateCharacterArgs) => {
@@ -50,4 +50,17 @@ export const createCharacter = async (input: CreateCharacterArgs) => {
   });
 
   return createdUser;
+};
+
+export const deleteCharacter = async (id: number) => {
+  try {
+    const deletedCharacter = await prisma.character.delete({
+      where: { id: Number(id) },
+    });
+    return { success: true, deletedCharacter };
+  } catch (error: Error | any) {
+    throw new Error(
+      `An error occurred while deleting the character: ${error?.meta?.cause}`
+    );
+  }
 };
