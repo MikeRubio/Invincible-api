@@ -6,22 +6,55 @@ enum CharacterStatus {
 
 enum CharacterSpecie {
   HUMAN
-  Viltrumites
-  Flaxans
-  Sequids
-  Unopians
-  Martians
+  VILTRUMITES
+  FLAXANS
+  SEQUIDS
+  UNOPIANS
+  MARTIANS
+  REANIMEN
+  CYBORG
+  ALIEN
+  KRYPTONIAN
+  SAPIEN
+  DAEMONITE
+  SIMIAN
+  ANTI_MATTER
+  MOLLUSK
+  DRAGON
+  LILLIPUTIAN
+  THERIAN
+  ZEPHYRIAN
+  FLORA
+  GALFIAN
+  COLONIAL
+  TALOXIAN
+  THRESHAN
+  XANREAN
+  VILTRUMITE_HUMAN
 }
 
 input CharacterInput {
+  # name: String!
+  # status: CharacterStatus
+  # bio: String
+  # voiceBy: [String]
+  # image: String
+  # specie: [CharacterSpecie]
+  # occupation: [String]
+  # home: String
   name: String!
   status: CharacterStatus
   bio: String
-  voiceBy: [String]
+  voiceBy: [String!]!
   image: String
-  specie: CharacterSpecie
-  occupation: [String]
-  home: String
+  occupation: [String!]!
+  specie: [CharacterSpecie!]!
+  home: [String]
+  placeOfBirth: String
+  alias: String
+  gender: String
+  affiliations: [String]
+  maritalStatus: String
 }
 
 type Character {
@@ -30,11 +63,20 @@ type Character {
   status: CharacterStatus
   bio: String
   episodes: [Episode]
-  voiceBy: [String]
+  voiceBy: [String!]!
   image: String
-  specie: CharacterSpecie
-  occupation: [String]
-  home: String
+  occupation: [String!]!
+  specie: [CharacterSpecie!]!
+  home: [String]
+  placeOfBirth: String
+  alias: String
+  gender: String
+  affiliations: [String]
+  maritalStatus: String
+  enemies: [Character]
+  relatedByEnemies: [Character]
+  allies: [Character]
+  relatedByAllies: [Character]
 }
 
 type Query {

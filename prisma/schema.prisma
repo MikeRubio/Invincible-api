@@ -24,46 +24,99 @@ enum CharacterStatus {
 
 enum CharacterSpecie {
   HUMAN
-  Viltrumites
-  Flaxans
-  Sequids
-  Unopians
-  Martians
+  VILTRUMITES
+  FLAXANS
+  SEQUIDS
+  UNOPIANS
+  MARTIANS
+  REANIMEN
+  CYBORG
+  ALIEN
+  KRYPTONIAN
+  SAPIEN
+  DAEMONITE
+  SIMIAN
+  ANTI_MATTER
+  MOLLUSK
+  DRAGON
+  LILLIPUTIAN
+  THERIAN
+  ZEPHYRIAN
+  FLORA
+  GALFIAN
+  COLONIAL
+  TALOXIAN
+  THRESHAN
+  XANREAN
+  VILTRUMITE_HUMAN
+}
+
+model Invincible {
+  id                Int       @id @default(autoincrement())
+  title             String
+  seasons           Season[]
+  airDate           DateTime?
+  endDate           DateTime?
+  image             String?
+  synopsis          String?
+  premise           String?
+  creators          String[]
+  writers           String[]
+  artists           String[]
+  network           String?
+  distributor       String?
+  status            String?
+  genre             String[]
+  basedOn           String?
+  executiveProducer String[]
+  country           String?
 }
 
 model Season {
-  id       Int       @id @default(autoincrement())
-  season   Int
-  title    String
-  episodes Episode[]
-  airDate  DateTime?
+  id           Int         @id @default(autoincrement())
+  season       Int
+  title        String
+  episodes     Episode[]
+  airDate      DateTime?
+  endDate      DateTime?
+  image        String?
+  Invincible   Invincible? @relation(fields: [invincibleId], references: [id])
+  invincibleId Int?
 }
 
 model Episode {
   id         Int           @id @default(autoincrement())
-  title      String
+  title      String        @unique
   airDate    DateTime?
-  image      String
+  image      String?
   status     EpisodeStatus
   duration   Int
   season     Season        @relation(fields: [seasonId], references: [id])
   seasonId   Int
   characters Character[]
-  storyLine  String?
+  synopsis   String?
   directors  String[]
   writers    String[]
-  guestStars String[]
 }
 
 model Character {
-  id         Int              @id @default(autoincrement())
-  name       String
-  status     CharacterStatus?
-  bio        String?
-  episodes   Episode[]
-  voiceBy    String[]
-  image      String
-  occupation String[]
-  specie     CharacterSpecie
-  home       String
+  id               Int               @id @default(autoincrement())
+  name             String            @unique
+  status           CharacterStatus?
+  bio              String?
+  episodes         Episode[]
+  voiceBy          String[]
+  image            String?
+  occupation       String[]
+  specie           CharacterSpecie[]
+  home             String[]
+  placeOfBirth     String?
+  alias            String?
+  gender           String?
+  affiliations     String[]
+  maritalStatus    String?
+  enemies          Character[]       @relation("CharacterToEnemies")
+  relatedByEnemies Character[]       @relation("CharacterToEnemies")
+  allies           Character[]       @relation("CharacterToAllies")
+  relatedByAllies  Character[]       @relation("CharacterToAllies")
 }

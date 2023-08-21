@@ -43,7 +43,7 @@ export const createCharacter = async (input: CreateCharacterArgs) => {
       bio: input.bio,
       voiceBy: input.voiceBy,
       image: input.image || "",
-      specie: input.specie,
+      // specie: input.specie,
       occupation: input.occupation,
       home: input.home,
     },

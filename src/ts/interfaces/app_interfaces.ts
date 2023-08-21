@@ -15,7 +15,12 @@ export interface CreateCharacterArgs {
   bio?: string;
   voiceBy?: string[];
   image?: string;
-  specie: CharacterSpecie;
+  specie: CharacterSpecie[];
   occupation?: string[];
-  home: string;
+  home: string[];
+  placeOfBirth?: string;
+  alias?: string;
+  gender?: string;
+  affiliation?: string[];
+  martialStatus?: string;
 }

@@ -6,12 +6,36 @@ enum EpisodeStatus {
   CANCELLED
 }
 
+type Invincible {
+  id: ID!
+  title: String!
+  seasons: [Season!]!
+  airDate: Date
+  endDate: Date
+  image: String
+  synopsis: String
+  premise: String
+  creators: [String!]!
+  writers: [String!]!
+  artists: [String!]!
+  network: String
+  distributor: String
+  status: String
+  genre: [String!]!
+  basedOn: String
+  executiveProducer: [String!]!
+  country: String
+}
+
 type Season {
   id: ID!
   season: Int!
   title: String!
   episodes: [Episode!]!
   airDate: Date
+  endDate: Date
+  image: String
+  Invincible: Invincible
 }
 
 type Episode {
@@ -20,12 +44,10 @@ type Episode {
   airDate: Date
   image: String
   status: EpisodeStatus!
-  duration: Int
+  duration: Int!
   season: Season!
-  seasonId: ID!
   characters: [Character!]!
-  storyLine: String
+  synopsis: String
   directors: [String!]!
   writers: [String!]!
-  guestStars: [String!]!
 }
