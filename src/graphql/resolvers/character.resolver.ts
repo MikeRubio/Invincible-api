@@ -3,6 +3,7 @@ import {
   getCharacter,
   getCharacters,
   createCharacter,
+  deleteCharacter,
 } from "../services/character.service";
 
 export const characterResolver = {
@@ -27,6 +28,10 @@ export const characterResolver = {
   Mutation: {
     async createCharacter(_: any, args: Record<string, any>) {
       return await createCharacter(args.input);
+    },
+
+    async deleteCharacter(_: any, args: Record<string, any>) {
+      return await deleteCharacter(args.id);
     },
   },
 };

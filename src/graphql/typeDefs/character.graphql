@@ -44,4 +44,5 @@ type Query {
 
 type Mutation {
   createCharacter(input: CharacterInput): Character
+  deleteCharacter(id: ID!): Character
 }
