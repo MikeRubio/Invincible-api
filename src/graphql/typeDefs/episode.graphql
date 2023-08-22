@@ -51,3 +51,8 @@ type Episode {
   directors: [String!]!
   writers: [String!]!
 }
+
+type Query {
+  episodes: [Episode]
+  episode(id: ID!): Episode
+}
