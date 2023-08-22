@@ -1,15 +1,15 @@
 {
-  "name": "invincible-srv",
+  "name": "invincible-api",
   "version": "1.0.0",
-  "description": "",
+  "author": "Miguel Rubio",
+  "description": "Invincible API built with Node.js, Express, GraphQL, and Prisma.",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
     "build": "rm -rf /build && tsc",
     "start": "node build/src/index.js"
   },
-  "author": "Miguel Rubio",
-  "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.9.1",
     "@prisma/client": "^5.1.1",
@@ -26,5 +26,21 @@
     "prisma": "^5.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
-  }
+  },
+  "keywords": [
+    "invincible",
+    "api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeRubio/Invincible-api"
+  },
+  "bugs": {
+    "url": "https://github.com/MikeRubio/Invincible-api/issues"
+  },
+  "maintainer": {
+    "name": "Miguel Rubio",
+    "web": "https://github.com/MikeRubio"
+  },
+  "homepage": "https://github.com/MikeRubio/Invincible-api/blob/main/README.md"
 }
