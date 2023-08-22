@@ -4,57 +4,63 @@ enum CharacterStatus {
   UNKNOWN
 }
 
-enum CharacterSpecie {
-  HUMAN
-  VILTRUMITES
-  FLAXANS
-  SEQUIDS
-  UNOPIANS
-  MARTIANS
-  REANIMEN
-  CYBORG
-  ALIEN
-  KRYPTONIAN
-  SAPIEN
-  DAEMONITE
-  SIMIAN
-  ANTI_MATTER
-  MOLLUSK
-  DRAGON
-  LILLIPUTIAN
-  THERIAN
-  ZEPHYRIAN
-  FLORA
-  GALFIAN
-  COLONIAL
-  TALOXIAN
-  THRESHAN
-  XANREAN
-  VILTRUMITE_HUMAN
+enum CharacterGender {
+  MALE
+  FEMALE
+  OTHER
+  UNKNOWN
 }
 
-input CharacterInput {
-  # name: String!
-  # status: CharacterStatus
-  # bio: String
-  # voiceBy: [String]
-  # image: String
-  # specie: [CharacterSpecie]
-  # occupation: [String]
-  # home: String
+input CreateCharacterInput {
   name: String!
   status: CharacterStatus
   bio: String
   voiceBy: [String!]!
-  image: String
+  image: [String]
   occupation: [String!]!
-  specie: [CharacterSpecie!]!
+  specie: String!
   home: [String]
   placeOfBirth: String
   alias: String
-  gender: String
+  gender: CharacterGender
   affiliations: [String]
   maritalStatus: String
+  age: String
+  placeOfDeath: String
+  causeOfDeath: String
+}
+
+input UpdateCharacterInput {
+  name: String
+  status: CharacterStatus
+  bio: String
+  voiceBy: [String]
+  image: [String]
+  occupation: [String]
+  specie: String
+  home: [String]
+  placeOfBirth: String
+  alias: String
+  gender: CharacterGender
+  affiliations: [String]
+  maritalStatus: String
+  age: String
+  placeOfDeath: String
+  causeOfDeath: String
+}
+
+type Relatives {
+  id: ID!
+  name: String!
+  image: String
+  characters: [Character!]!
+}
+
+type Enemies {
+  id: ID!
+  name: String!
+  image: String
+  characters: [Character!]!
 }
 
 type Character {
@@ -64,19 +70,18 @@ type Character {
   bio: String
   episodes: [Episode]
   voiceBy: [String!]!
-  image: String
+  age: String
+  image: [String]
   occupation: [String!]!
-  specie: [CharacterSpecie!]!
+  specie: String!
   home: [String]
   placeOfBirth: String
   alias: String
-  gender: String
+  gender: CharacterGender
   affiliations: [String]
+  placeOfDeath: String
+  causeOfDeath: String
   maritalStatus: String
-  enemies: [Character]
-  relatedByEnemies: [Character]
-  allies: [Character]
-  relatedByAllies: [Character]
 }
 
 type Query {
@@ -85,6 +90,7 @@ type Query {
 }
 
 type Mutation {
-  createCharacter(input: CharacterInput): Character
+  createCharacter(input: CreateCharacterInput): Character
   deleteCharacter(id: ID!): Character
+  updateCharacter(id: ID!, input: UpdateCharacterInput): Character
 }

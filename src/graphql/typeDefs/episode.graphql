@@ -34,7 +34,7 @@ type Season {
   episodes: [Episode!]!
   airDate: Date
   endDate: Date
-  image: String
+  image: [String]
   Invincible: Invincible
 }
 
@@ -42,7 +42,7 @@ type Episode {
   id: ID!
   title: String!
   airDate: Date
-  image: String
+  image: [String]
   status: EpisodeStatus!
   duration: Int!
   season: Season!

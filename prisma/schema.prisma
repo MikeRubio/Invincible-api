@@ -18,77 +18,32 @@ enum EpisodeStatus {
 
 enum CharacterStatus {
   ALIVE
-  DEAD
+  DECEASED
   UNKNOWN
 }
 
-enum CharacterSpecie {
-  HUMAN
-  VILTRUMITES
-  FLAXANS
-  SEQUIDS
-  UNOPIANS
-  MARTIANS
-  REANIMEN
-  CYBORG
-  ALIEN
-  KRYPTONIAN
-  SAPIEN
-  DAEMONITE
-  SIMIAN
-  ANTI_MATTER
-  MOLLUSK
-  DRAGON
-  LILLIPUTIAN
-  THERIAN
-  ZEPHYRIAN
-  FLORA
-  GALFIAN
-  COLONIAL
-  TALOXIAN
-  THRESHAN
-  XANREAN
-  VILTRUMITE_HUMAN
-}
-
-model Invincible {
-  id                Int       @id @default(autoincrement())
-  title             String
-  seasons           Season[]
-  airDate           DateTime?
-  endDate           DateTime?
-  image             String?
-  synopsis          String?
-  premise           String?
-  creators          String[]
-  writers           String[]
-  artists           String[]
-  network           String?
-  distributor       String?
-  status            String?
-  genre             String[]
-  basedOn           String?
-  executiveProducer String[]
-  country           String?
+enum CharacterGender {
+  MALE
+  FEMALE
+  OTHER
+  UNKNOWN
 }
 
 model Season {
-  id           Int         @id @default(autoincrement())
-  season       Int
-  title        String
-  episodes     Episode[]
-  airDate      DateTime?
-  endDate      DateTime?
-  image        String?
-  Invincible   Invincible? @relation(fields: [invincibleId], references: [id])
-  invincibleId Int?
+  id       Int       @id @default(autoincrement())
+  season   Int
+  title    String
+  episodes Episode[]
+  airDate  DateTime?
+  endDate  DateTime?
+  image    String[]  @default([""])
 }
 
 model Episode {
   id         Int           @id @default(autoincrement())
   title      String        @unique
   airDate    DateTime?
-  image      String?
+  image      String[]      @default([""])
   status     EpisodeStatus
   duration   Int
   season     Season        @relation(fields: [seasonId], references: [id])
@@ -100,23 +55,22 @@ model Episode {
 }
 
 model Character {
-  id               Int               @id @default(autoincrement())
-  name             String            @unique
-  status           CharacterStatus?
-  bio              String?
-  episodes         Episode[]
-  voiceBy          String[]
-  image            String?
-  occupation       String[]
-  specie           CharacterSpecie[]
-  home             String[]
-  placeOfBirth     String?
-  alias            String?
-  gender           String?
-  affiliations     String[]
-  maritalStatus    String?
-  enemies          Character[]       @relation("CharacterToEnemies")
-  relatedByEnemies Character[]       @relation("CharacterToEnemies")
-  allies           Character[]       @relation("CharacterToAllies")
-  relatedByAllies  Character[]       @relation("CharacterToAllies")
+  id            Int              @id @default(autoincrement())
+  name          String
+  status        CharacterStatus? @default(ALIVE)
+  bio           String?
+  episodes      Episode[]
+  voiceBy       String[]
+  Age           String?          @default("")
+  image         String[]         @default([""])
+  occupation    String[]
+  specie        String?          @default("Human")
+  home          String[]         @default(["Earth"])
+  placeOfBirth  String?          @default("Earth")
+  alias         String?          @unique
+  gender        CharacterGender? @default(MALE)
+  affiliations  String[]
+  placeOfDeath  String?          @default("")
+  causeOfDeath  String?          @default("")
+  maritalStatus String?          @default("Single")
 }

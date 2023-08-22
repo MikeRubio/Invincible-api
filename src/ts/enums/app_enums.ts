@@ -1,14 +1,12 @@
 export enum CharacterStatus {
   ALIVE = "ALIVE",
-  DEAD = "DEAD",
+  DECEASED = "DECEASED",
   UNKNOWN = "UNKNOWN",
 }
 
-export enum CharacterSpecie {
-  HUMAN = "HUMAN",
-  Viltrumites = "Viltrumites",
-  Flaxans = "Flaxans",
-  Sequids = "Sequids",
-  Unopians = "Unopians",
-  Martians = "Martians",
+export enum CharacterGender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  OTHER = "OTHER",
+  UNKNOWN = "UNKNOWN",
 }
