@@ -4,6 +4,7 @@ import {
   GetCharactersArgs,
   GetCharacterArgs,
   CreateCharacterArgs,
+  UpdateCharacterArgs,
 } from "../../ts/interfaces/app_interfaces";
 
 const prisma = new PrismaClient({
@@ -42,7 +43,7 @@ export const createCharacter = async (input: CreateCharacterArgs) => {
       status: input.status,
       bio: input.bio,
       voiceBy: input.voiceBy,
-      image: input.image || "",
+      image: input.image,
       specie: input.specie,
       occupation: input.occupation,
       home: input.home,
@@ -57,10 +58,33 @@ export const deleteCharacter = async (id: number) => {
     const deletedCharacter = await prisma.character.delete({
       where: { id: Number(id) },
     });
-    return { success: true, deletedCharacter };
+    return deletedCharacter;
   } catch (error: Error | any) {
     throw new Error(
       `An error occurred while deleting the character: ${error?.meta?.cause}`
     );
   }
+};
+
+export const updateCharacter = async (
+  id: number,
+  input: UpdateCharacterArgs
+) => {
+  const updatedCharacter = await prisma.character.update({
+    where: { id: Number(id) },
+    data: {
+      name: input.name,
+      status: input.status,
+      bio: input.bio,
+      voiceBy: input.voiceBy,
+      image: input.image,
+      occupation: input.occupation,
+      specie: input.specie,
+      home: input.home,
+      placeOfBirth: input.placeOfBirth,
+      alias: input.alias,
+      affiliations: input.affiliation,
+    },
+  });
+  return updatedCharacter;
 };

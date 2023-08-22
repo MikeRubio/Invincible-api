@@ -2,10 +2,10 @@
 CREATE TYPE "EpisodeStatus" AS ENUM ('UPCOMING', 'AIRED', 'CANCELLED');
 
 -- CreateEnum
-CREATE TYPE "CharacterStatus" AS ENUM ('ALIVE', 'DEAD', 'UNKNOWN');
+CREATE TYPE "CharacterStatus" AS ENUM ('ALIVE', 'DECEASED', 'UNKNOWN');
 
 -- CreateEnum
-CREATE TYPE "CharacterSpecie" AS ENUM ('HUMAN', 'Viltrumites', 'Flaxans', 'Sequids', 'Unopians', 'Martians');
+CREATE TYPE "CharacterGender" AS ENUM ('MALE', 'FEMALE', 'OTHER', 'UNKNOWN');
 
 -- CreateTable
 CREATE TABLE "Season" (
@@ -13,6 +13,8 @@ CREATE TABLE "Season" (
     "season" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "airDate" TIMESTAMP(3),
+    "endDate" TIMESTAMP(3),
+    "image" TEXT[] DEFAULT ARRAY['']::TEXT[],
 
     CONSTRAINT "Season_pkey" PRIMARY KEY ("id")
 );
@@ -22,14 +24,13 @@ CREATE TABLE "Episode" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "airDate" TIMESTAMP(3),
-    "image" TEXT NOT NULL,
+    "image" TEXT[] DEFAULT ARRAY['']::TEXT[],
     "status" "EpisodeStatus" NOT NULL,
     "duration" INTEGER NOT NULL,
     "seasonId" INTEGER NOT NULL,
-    "storyLine" TEXT,
+    "synopsis" TEXT,
     "directors" TEXT[],
     "writers" TEXT[],
-    "guestStars" TEXT[],
 
     CONSTRAINT "Episode_pkey" PRIMARY KEY ("id")
 );
@@ -38,13 +39,21 @@ CREATE TABLE "Episode" (
 CREATE TABLE "Character" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "status" "CharacterStatus",
+    "status" "CharacterStatus" DEFAULT 'ALIVE',
     "bio" TEXT,
     "voiceBy" TEXT[],
-    "image" TEXT NOT NULL,
+    "Age" TEXT DEFAULT '',
+    "image" TEXT[] DEFAULT ARRAY['']::TEXT[],
     "occupation" TEXT[],
-    "specie" "CharacterSpecie" NOT NULL,
-    "home" TEXT NOT NULL,
+    "specie" TEXT DEFAULT 'Human',
+    "home" TEXT[] DEFAULT ARRAY['Earth']::TEXT[],
+    "placeOfBirth" TEXT DEFAULT 'Earth',
+    "alias" TEXT,
+    "gender" "CharacterGender" DEFAULT 'MALE',
+    "affiliations" TEXT[],
+    "placeOfDeath" TEXT DEFAULT '',
+    "causeOfDeath" TEXT DEFAULT '',
+    "maritalStatus" TEXT DEFAULT 'Single',
 
     CONSTRAINT "Character_pkey" PRIMARY KEY ("id")
 );
@@ -54,6 +63,12 @@ CREATE TABLE "_CharacterToEpisode" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Episode_title_key" ON "Episode"("title");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Character_alias_key" ON "Character"("alias");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_CharacterToEpisode_AB_unique" ON "_CharacterToEpisode"("A", "B");

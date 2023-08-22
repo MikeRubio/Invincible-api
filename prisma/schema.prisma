@@ -18,17 +18,15 @@ enum EpisodeStatus {
 
 enum CharacterStatus {
   ALIVE
-  DEAD
+  DECEASED
   UNKNOWN
 }
 
-enum CharacterSpecie {
-  HUMAN
-  Viltrumites
-  Flaxans
-  Sequids
-  Unopians
-  Martians
+enum CharacterGender {
+  MALE
+  FEMALE
+  OTHER
+  UNKNOWN
 }
 
 model Season {
@@ -37,33 +35,42 @@ model Season {
   title    String
   episodes Episode[]
   airDate  DateTime?
+  endDate  DateTime?
+  image    String[]  @default([""])
 }
 
 model Episode {
   id         Int           @id @default(autoincrement())
-  title      String
+  title      String        @unique
   airDate    DateTime?
-  image      String
+  image      String[]      @default([""])
   status     EpisodeStatus
   duration   Int
   season     Season        @relation(fields: [seasonId], references: [id])
   seasonId   Int
   characters Character[]
-  storyLine  String?
+  synopsis   String?
   directors  String[]
   writers    String[]
-  guestStars String[]
 }
 
 model Character {
-  id         Int              @id @default(autoincrement())
-  name       String
-  status     CharacterStatus?
-  bio        String?
-  episodes   Episode[]
-  voiceBy    String[]
-  image      String
-  occupation String[]
-  specie     CharacterSpecie
-  home       String
+  id            Int              @id @default(autoincrement())
+  name          String
+  status        CharacterStatus? @default(ALIVE)
+  bio           String?
+  episodes      Episode[]
+  voiceBy       String[]
+  Age           String?          @default("")
+  image         String[]         @default([""])
+  occupation    String[]
+  specie        String?          @default("Human")
+  home          String[]         @default(["Earth"])
+  placeOfBirth  String?          @default("Earth")
+  alias         String?          @unique
+  gender        CharacterGender? @default(MALE)
+  affiliations  String[]
+  placeOfDeath  String?          @default("")
+  causeOfDeath  String?          @default("")
+  maritalStatus String?          @default("Single")
 }

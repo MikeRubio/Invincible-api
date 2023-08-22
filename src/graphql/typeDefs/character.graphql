@@ -4,24 +4,63 @@ enum CharacterStatus {
   UNKNOWN
 }
 
-enum CharacterSpecie {
-  HUMAN
-  Viltrumites
-  Flaxans
-  Sequids
-  Unopians
-  Martians
+enum CharacterGender {
+  MALE
+  FEMALE
+  OTHER
+  UNKNOWN
 }
 
-input CharacterInput {
+input CreateCharacterInput {
   name: String!
   status: CharacterStatus
   bio: String
+  voiceBy: [String!]!
+  image: [String]
+  occupation: [String!]!
+  specie: String!
+  home: [String]
+  placeOfBirth: String
+  alias: String
+  gender: CharacterGender
+  affiliations: [String]
+  maritalStatus: String
+  age: String
+  placeOfDeath: String
+  causeOfDeath: String
+}
+
+input UpdateCharacterInput {
+  name: String
+  status: CharacterStatus
+  bio: String
   voiceBy: [String]
-  image: String
-  specie: CharacterSpecie
+  image: [String]
   occupation: [String]
-  home: String
+  specie: String
+  home: [String]
+  placeOfBirth: String
+  alias: String
+  gender: CharacterGender
+  affiliations: [String]
+  maritalStatus: String
+  age: String
+  placeOfDeath: String
+  causeOfDeath: String
+}
+
+type Relatives {
+  id: ID!
+  name: String!
+  image: String
+  characters: [Character!]!
+}
+
+type Enemies {
+  id: ID!
+  name: String!
+  image: String
+  characters: [Character!]!
 }
 
 type Character {
@@ -30,11 +69,19 @@ type Character {
   status: CharacterStatus
   bio: String
   episodes: [Episode]
-  voiceBy: [String]
-  image: String
-  specie: CharacterSpecie
-  occupation: [String]
-  home: String
+  voiceBy: [String!]!
+  age: String
+  image: [String]
+  occupation: [String!]!
+  specie: String!
+  home: [String]
+  placeOfBirth: String
+  alias: String
+  gender: CharacterGender
+  affiliations: [String]
+  placeOfDeath: String
+  causeOfDeath: String
+  maritalStatus: String
 }
 
 type Query {
@@ -43,6 +90,7 @@ type Query {
 }
 
 type Mutation {
-  createCharacter(input: CharacterInput): Character
+  createCharacter(input: CreateCharacterInput): Character
   deleteCharacter(id: ID!): Character
+  updateCharacter(id: ID!, input: UpdateCharacterInput): Character
 }
