@@ -5,7 +5,15 @@ export interface GetCharactersArgs {
   info: GraphQLResolveInfo;
 }
 
+export interface GetEpisodesArgs {
+  info: GraphQLResolveInfo;
+}
+
 export interface GetCharacterArgs extends GetCharactersArgs {
+  id: number;
+}
+
+export interface GetEpisodeArgs extends GetEpisodesArgs {
   id: number;
 }
 

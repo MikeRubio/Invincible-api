@@ -2,6 +2,7 @@ import { GraphQLScalarType, Kind } from "graphql";
 import { readFileSync } from "fs";
 import path from "path";
 import { characterResolver } from "./resolvers/character.resolver";
+import { episodeResolver } from "./resolvers/episode.resolver";
 
 const dateScalar = new GraphQLScalarType({
   name: "Date",
@@ -50,6 +51,7 @@ export const typeDefs = `
 export const resolvers = {
   Query: {
     ...characterResolver.Query,
+    ...episodeResolver.Query,
   },
   Mutation: {
     ...characterResolver.Mutation,
