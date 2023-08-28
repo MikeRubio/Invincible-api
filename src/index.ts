@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { typeDefs, resolvers } from "./graphql";
+import charactersRouter from "./routes/characters";
+import characterRouter from "./routes/character";
 
 dotenv.config();
 const app = express();
@@ -21,12 +23,8 @@ const bootstrapServer = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use("/graphql", expressMiddleware(server));
-
-  app.get("/", (req, res) => {
-    res.send(
-      "Welcome to the Invincible API! try hitting /graphql for the playground"
-    );
-  });
+  app.use("/characters", charactersRouter);
+  app.use("/character", characterRouter);
 
   app.listen(port, () => {
     console.log(`🚀 Express running at: http://localhost:${port}`);
