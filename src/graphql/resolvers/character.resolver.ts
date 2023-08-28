@@ -1,7 +1,10 @@
 import { GraphQLResolveInfo } from "graphql";
 import {
   getCharacter,
+  getCharacterByAlias,
   getCharacters,
+  getCharactersByStatus,
+  getCharactersByGender,
   createCharacter,
   deleteCharacter,
   updateCharacter,
@@ -17,6 +20,22 @@ export const characterResolver = {
     ) {
       return await getCharacters({ info });
     },
+    async charactersByStatus(
+      _: any,
+      args: Record<string, any>,
+      contex: any,
+      info: GraphQLResolveInfo
+    ) {
+      return await getCharactersByStatus({ status: args.status, info });
+    },
+    async charactersByGender(
+      _: any,
+      args: Record<string, any>,
+      contex: any,
+      info: GraphQLResolveInfo
+    ) {
+      return await getCharactersByGender({ gender: args.gender, info });
+    },
     async character(
       _: any,
       args: Record<string, any>,
@@ -24,6 +43,14 @@ export const characterResolver = {
       info: GraphQLResolveInfo
     ) {
       return await getCharacter({ id: args.id, info });
+    },
+    async characterByAlias(
+      _: any,
+      args: Record<string, any>,
+      contex: any,
+      info: GraphQLResolveInfo
+    ) {
+      return await getCharacterByAlias({ alias: args.alias, info });
     },
   },
 
