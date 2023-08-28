@@ -36,6 +36,60 @@ export const getCharacter = async ({ id, info }: GetCharacterArgs) => {
   return await prisma.character.findUnique({ where: { id: Number(id) } });
 };
 
+export const getCharacterByAlias = async ({
+  alias,
+  info,
+}: GetCharacterArgs) => {
+  const extractedSelections = extractSelections(info);
+  const episodesIncluded = extractedSelections.includes("episodes");
+
+  if (episodesIncluded) {
+    return await prisma.character.findUnique({
+      where: { alias: alias },
+      include: { episodes: true },
+    });
+  }
+
+  return await prisma.character.findUnique({ where: { alias: alias } });
+};
+
+export const getCharactersByStatus = async ({
+  status,
+  info,
+}: GetCharactersArgs) => {
+  const extractedSelections = extractSelections(info);
+  const episodesIncluded = extractedSelections.includes("episodes");
+
+  if (episodesIncluded) {
+    return await prisma.character.findMany({
+      where: { status: status },
+      include: { episodes: true },
+    });
+  }
+
+  return await prisma.character.findMany({
+    where: { status: status },
+  });
+};
+
+export const getCharactersByGender = async ({
+  gender,
+  info,
+}: GetCharactersArgs) => {
+  const extractedSelections = extractSelections(info);
+  const episodesIncluded = extractedSelections.includes("episodes");
+
+  if (episodesIncluded) {
+    return await prisma.character.findMany({
+      where: { gender: gender },
+      include: { episodes: true },
+    });
+  }
+  return await prisma.character.findMany({
+    where: { gender: gender },
+  });
+};
+
 export const createCharacter = async (input: CreateCharacterArgs) => {
   const createdUser = await prisma.character.create({
     data: {

@@ -3,6 +3,8 @@ import { CharacterStatus, CharacterGender } from "../enums/app_enums";
 
 export interface GetCharactersArgs {
   info: GraphQLResolveInfo;
+  status?: CharacterStatus;
+  gender?: CharacterGender;
 }
 
 export interface GetEpisodesArgs {
@@ -10,7 +12,8 @@ export interface GetEpisodesArgs {
 }
 
 export interface GetCharacterArgs extends GetCharactersArgs {
-  id: number;
+  id?: number;
+  alias?: string;
 }
 
 export interface GetEpisodeArgs extends GetEpisodesArgs {

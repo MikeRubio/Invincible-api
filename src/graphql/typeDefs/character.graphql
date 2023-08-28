@@ -1,6 +1,6 @@
 enum CharacterStatus {
   ALIVE
-  DEAD
+  DECEASED
   UNKNOWN
 }
 
@@ -86,7 +86,10 @@ type Character {
 
 type Query {
   characters: [Character]
+  charactersByStatus(status: CharacterStatus!): [Character]
+  charactersByGender(gender: CharacterGender!): [Character]
   character(id: ID!): Character
+  characterByAlias(alias: String): Character
 }
 
 type Mutation {
