@@ -1,11 +1,13 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { typeDefs, resolvers } from "./graphql";
-import charactersRouter from "./routes/characters";
-import characterRouter from "./routes/character";
+
+import { typeDefs, resolvers } from "../src/graphql";
+import charactersRouter from "../src/routes/characters";
+import characterRouter from "../src/routes/character";
 
 dotenv.config();
 const app = express();
