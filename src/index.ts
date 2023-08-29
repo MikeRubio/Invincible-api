@@ -22,7 +22,16 @@ const bootstrapServer = async () => {
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use("/graphql", expressMiddleware(server));
+
+  app.use("/images", express.static("public"));
+  app.use(
+    "/graphql",
+    expressMiddleware(server, {
+      context: async ({ req, res }) => ({
+        url: `${req.protocol}://${req.get("host")}`,
+      }),
+    })
+  );
   app.use("/characters", charactersRouter);
   app.use("/character", characterRouter);
 

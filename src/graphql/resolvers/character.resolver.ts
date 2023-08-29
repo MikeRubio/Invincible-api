@@ -11,11 +11,18 @@ import {
 } from "../services/character.service";
 
 export const characterResolver = {
+  Character: {
+    image: (parent: any, _: any, { url }: any) => {
+      return parent.image.map(
+        (imageName: string) => `${url}/images/${imageName}`
+      );
+    },
+  },
   Query: {
     async characters(
       _: any,
       args: Record<string, any>,
-      contex: any,
+      context: any,
       info: GraphQLResolveInfo
     ) {
       return await getCharacters({ info });
@@ -23,7 +30,7 @@ export const characterResolver = {
     async charactersByStatus(
       _: any,
       args: Record<string, any>,
-      contex: any,
+      context: any,
       info: GraphQLResolveInfo
     ) {
       return await getCharactersByStatus({ status: args.status, info });
@@ -31,7 +38,7 @@ export const characterResolver = {
     async charactersByGender(
       _: any,
       args: Record<string, any>,
-      contex: any,
+      context: any,
       info: GraphQLResolveInfo
     ) {
       return await getCharactersByGender({ gender: args.gender, info });
@@ -39,7 +46,7 @@ export const characterResolver = {
     async character(
       _: any,
       args: Record<string, any>,
-      contex: any,
+      context: any,
       info: GraphQLResolveInfo
     ) {
       return await getCharacter({ id: args.id, info });
@@ -47,7 +54,7 @@ export const characterResolver = {
     async characterByAlias(
       _: any,
       args: Record<string, any>,
-      contex: any,
+      context: any,
       info: GraphQLResolveInfo
     ) {
       return await getCharacterByAlias({ alias: args.alias, info });
