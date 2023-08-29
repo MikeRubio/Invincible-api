@@ -7,7 +7,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "rm -rf /build && tsc",
+    "build": "npm install && tsc -p .",
     "start": "node build/src/index.js"
   },
   "dependencies": {
