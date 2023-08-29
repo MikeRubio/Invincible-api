@@ -7,6 +7,11 @@ export interface GetCharactersArgs {
   gender?: CharacterGender;
 }
 
+export interface GetCharactersByIdArgs {
+  info: GraphQLResolveInfo;
+  characterIds: number[];
+}
+
 export interface GetEpisodesArgs {
   info: GraphQLResolveInfo;
 }

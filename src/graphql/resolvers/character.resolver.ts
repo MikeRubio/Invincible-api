@@ -3,6 +3,7 @@ import {
   getCharacter,
   getCharacterByAlias,
   getCharacters,
+  getCharactersById,
   getCharactersByStatus,
   getCharactersByGender,
   createCharacter,
@@ -26,6 +27,14 @@ export const characterResolver = {
       info: GraphQLResolveInfo
     ) {
       return await getCharacters({ info });
+    },
+    async charactersById(
+      _: any,
+      args: Record<string, any>,
+      context: any,
+      info: GraphQLResolveInfo
+    ) {
+      return await getCharactersById({ characterIds: args.characterIds, info });
     },
     async charactersByStatus(
       _: any,

@@ -86,6 +86,7 @@ type Character {
 
 type Query {
   characters: [Character]
+  charactersById(characterIds: [ID!]): [Character]
   charactersByStatus(status: CharacterStatus!): [Character]
   charactersByGender(gender: CharacterGender!): [Character]
   character(id: ID!): Character
