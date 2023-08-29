@@ -5,6 +5,7 @@ import {
   GetCharacterArgs,
   CreateCharacterArgs,
   UpdateCharacterArgs,
+  GetCharactersByIdArgs,
 } from "../../ts/interfaces/app_interfaces";
 
 const prisma = new PrismaClient({
@@ -20,6 +21,35 @@ export const getCharacters = async ({ info }: GetCharactersArgs) => {
   }
 
   return await prisma.character.findMany();
+};
+
+export const getCharactersById = async ({
+  info,
+  characterIds,
+}: GetCharactersByIdArgs) => {
+  const extractedSelections = extractSelections(info);
+  const episodesIncluded = extractedSelections.includes("episodes");
+  const parsedCharacterIds = characterIds?.map(Number);
+
+  console.log(parsedCharacterIds);
+  if (episodesIncluded) {
+    if (parsedCharacterIds && parsedCharacterIds.length > 0) {
+      return await prisma.character.findMany({
+        where: { id: { in: parsedCharacterIds } },
+        include: { episodes: true },
+      });
+    } else {
+      return await prisma.character.findMany({ include: { episodes: true } });
+    }
+  }
+
+  if (parsedCharacterIds && parsedCharacterIds.length > 0) {
+    return await prisma.character.findMany({
+      where: { id: { in: parsedCharacterIds } },
+    });
+  } else {
+    return await prisma.character.findMany();
+  }
 };
 
 export const getCharacter = async ({ id, info }: GetCharacterArgs) => {

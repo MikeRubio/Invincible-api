@@ -49,6 +49,9 @@ export const typeDefs = `
   `;
 
 export const resolvers = {
+  Character: {
+    ...characterResolver.Character,
+  },
   Query: {
     ...characterResolver.Query,
     ...episodeResolver.Query,
