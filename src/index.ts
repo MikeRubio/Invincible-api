@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import serverless from "serverless-http";
 
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
@@ -26,17 +25,17 @@ const bootstrapServer = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use("/.netlify/functions/images", express.static("public"));
+  app.use("/images", express.static("public"));
   app.use(
-    "/.netlify/functions/graphql",
+    "/graphql",
     expressMiddleware(server, {
       context: async ({ req, res }) => ({
         url: `${req.protocol}://${req.get("host")}`,
       }),
     })
   );
-  app.use("/.netlify/functions/characters", charactersRouter);
-  app.use("/.netlify/functions/character", characterRouter);
+  app.use("/characters", charactersRouter);
+  app.use("/character", characterRouter);
 
   app.listen(port, () => {
     console.log(`🚀 Express running at: http://localhost:${port}`);
@@ -45,4 +44,3 @@ const bootstrapServer = async () => {
 };
 
 bootstrapServer();
-export const handler = serverless(app);

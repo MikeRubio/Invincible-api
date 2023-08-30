@@ -8,9 +8,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "npm install && tsc -p .",
-    "start": "node build/src/index.ts",
-    "build-netlify": "cross-env netlify-lambda build src",
-    "start-netlify": "./node_modules/.bin/netlify-lambda start src"
+    "start": "node build/src/index.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.9.1",
