@@ -19,5 +19,5 @@
             ]
         }
     },
-    "include": ["src/**/*", "functions/index.ts"]
+    "include": ["src/**/*", "src/index.ts"]
 }
